@@ -1,3 +1,4 @@
+# ahead-flow-base
 FROM rstudio/r-base:4.0.3-bionic
 
 ARG CONDA_ENV_NAME=rpython
@@ -5,6 +6,7 @@ ARG CONDA_PREFIX=/opt/conda
 ARG PYTHON_VERSION=3.6.10
 
 # https://www.biostars.org/p/157305/#222297
+# https://github.com/Bioconductor/bioconductor_docker/blob/master/Dockerfile
 RUN apt-get update && \
 	apt-get install -y \
 	vim \
@@ -20,8 +22,10 @@ RUN apt-get update && \
 	libcurl4-openssl-dev \
 	libpng-dev \
 	libcairo2-dev \
-	libc6-dev
-#r-cran-xml
+	libc6-dev \
+	libxt-dev \
+	libgeos-dev
+# libgtk2.0-dev r-cran-xml
 
 # set python path
 # https://stackoverflow.com/questions/55346068/how-do-i-alias-python2-to-python3-in-a-docker-container
@@ -59,4 +63,3 @@ RUN echo "conda activate ${CONDA_ENV_NAME}" >> ~/.bashrc && \
  	conda config --env --add channels https://www.idiap.ch/software/bob/conda
 
 CMD ["/bin/bash"]
-
