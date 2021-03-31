@@ -6,8 +6,21 @@ ARG PYTHON_VERSION=3.6.10
 
 # https://www.biostars.org/p/157305/#222297
 RUN apt-get update && \
-	apt-get install -y vim python3-pip wget \
-	libssl-dev libxml2-dev libcurl4-openssl-dev libpng-dev libcairo2-dev
+	apt-get install -y \
+	vim \
+	wget \
+	build-essential \
+	python3-pip \
+	python3-setuptools \
+	libjpeg-dev \
+	libjpeg-turbo8-dev \
+	libjpeg8-dev \
+	libssl-dev \
+	libxml2-dev \
+	libcurl4-openssl-dev \
+	libpng-dev \
+	libcairo2-dev \
+	libc6-dev
 #r-cran-xml
 
 # set python path
@@ -16,9 +29,9 @@ RUN ln -s /usr/bin/python3.6 /usr/bin/python && \
 	ln -s /usr/bin/pip3 /usr/bin/pip
 
 # install R packages
-# RUN R -e 'install.packages("BiocManager", repos = "http://cran.rstudio.com/")' && \
-# 	R -e 'BiocManager::install("flowCore", ask=FALSE)' && \
-# 	R -e 'BiocManager::install("flowCut", ask=FALSE)'
+RUN R -e 'install.packages("BiocManager", repos = "http://cran.rstudio.com/")' && \
+	R -e 'BiocManager::install("flowCore", ask=FALSE)' && \
+	R -e 'BiocManager::install("flowCut", ask=FALSE)'
 
 # install miniconda for Bob
 ENV PATH ${CONDA_PREFIX}/bin:$PATH
