@@ -11,7 +11,7 @@ RUN apt-get update && \
 	# tools
 	vim \
 	wget \
-	build-essential \
+	build-essential
 	# python
 	# python3-pip \
 	# python3-setuptools \
