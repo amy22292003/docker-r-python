@@ -11,7 +11,7 @@ RUN apt-get update && \
 	# tools
 	vim \
 	wget \
-	build-essential
+	build-essential \
 	# python
 	# python3-pip \
 	# python3-setuptools \
@@ -19,10 +19,10 @@ RUN apt-get update && \
 	libjpeg-dev \
 	# libjpeg-turbo8-dev \
 	# libjpeg8-dev \
-	# libssl-dev \
-	# libxml2-dev \
+	libssl-dev \
+	libxml2-dev \
 	libcurl4-openssl-dev \
-	# libpng-dev \
+	libpng-dev \
 	libcairo2-dev \
 	# libc6-dev \
 	# libxt-dev \
