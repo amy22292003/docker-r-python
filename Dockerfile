@@ -1,5 +1,4 @@
-# ahead-flow-base
-FROM rstudio/r-base:4.0.3-bionic
+FROM r-base:4.0.3
 
 ARG CONDA_ENV_NAME=rpython
 ARG CONDA_PREFIX=/opt/conda
@@ -9,11 +8,14 @@ ARG PYTHON_VERSION=3.6.10
 # https://github.com/Bioconductor/bioconductor_docker/blob/master/Dockerfile
 RUN apt-get update && \
 	apt-get install -y \
+	# tools
 	vim \
 	wget \
 	build-essential \
-	python3-pip \
-	python3-setuptools \
+	# python
+	# python3-pip \
+	# python3-setuptools \
+	# r
 	libjpeg-dev \
 	libjpeg-turbo8-dev \
 	libjpeg8-dev \
@@ -29,8 +31,8 @@ RUN apt-get update && \
 
 # set python path
 # https://stackoverflow.com/questions/55346068/how-do-i-alias-python2-to-python3-in-a-docker-container
-RUN ln -s /usr/bin/python3.6 /usr/bin/python && \
-	ln -s /usr/bin/pip3 /usr/bin/pip
+# RUN ln -s /usr/bin/python3.6 /usr/bin/python && \
+# 	ln -s /usr/bin/pip3 /usr/bin/pip
 
 # install R packages
 RUN R -e 'install.packages("BiocManager", repos = "http://cran.rstudio.com/")' && \
