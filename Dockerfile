@@ -28,12 +28,6 @@ RUN apt-get update && \
     libc6-dev \
     libxt-dev \
     libgeos-dev
-# libgtk2.0-dev r-cran-xml
-
-# set python path
-# https://stackoverflow.com/questions/55346068/how-do-i-alias-python2-to-python3-in-a-docker-container
-# RUN ln -s /usr/bin/python3.6 /usr/bin/python && \
-#   ln -s /usr/bin/pip3 /usr/bin/pip
 
 # install R packages
 RUN R -e 'install.packages("BiocManager", repos = "http://cran.rstudio.com/")' && \
@@ -41,8 +35,7 @@ RUN R -e 'install.packages("BiocManager", repos = "http://cran.rstudio.com/")' &
     R -e 'BiocManager::install("flowCut", ask=FALSE)'
 
 # install miniconda for Bob
-ENV PATH ${CONDA_PREFIX}/bin:$PATH
-
+# ENV PATH="${CONDA_PREFIX}/bin:$PATH"
 # https://pythonspeed.com/articles/activate-conda-dockerfile/
 SHELL ["/bin/bash", "--login", "-c"]
 
@@ -50,6 +43,7 @@ SHELL ["/bin/bash", "--login", "-c"]
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     bash Miniconda3-latest-Linux-x86_64.sh -b -p ${CONDA_PREFIX} && \
     rm -f Miniconda3-latest-Linux-x86_64.sh && \
+    export PATH=${CONDA_PREFIX}/bin:$PATH && \
     conda init bash
 
 # install Bob
