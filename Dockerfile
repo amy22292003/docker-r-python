@@ -24,7 +24,8 @@ RUN apt-get update && \
 	libcairo2-dev \
 	libc6-dev \
 	libxt-dev \
-	libgeos-dev
+	libgeos-dev \
+	libssh2-1-dev
 # libgtk2.0-dev r-cran-xml
 
 # set python path
