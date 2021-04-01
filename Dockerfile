@@ -23,9 +23,10 @@ RUN apt-get update && \
 	libxml2-dev \
 	libcurl4-openssl-dev \
 	libpng-dev \
+	libgtk2.0-dev \
 	libcairo2-dev \
-	# libc6-dev \
-	# libxt-dev \
+	libc6-dev \
+	libxt-dev \
 	libgeos-dev
 # libgtk2.0-dev r-cran-xml
 
