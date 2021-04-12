@@ -46,7 +46,7 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh &
     bash Miniconda3-latest-Linux-x86_64.sh -b -p ${CONDA_PREFIX} && \
     rm -f Miniconda3-latest-Linux-x86_64.sh && \
     export PATH=${CONDA_PREFIX}/bin:$PATH && \
-    conda init bash
+    conda init sh
 
 # install Bob
 # https://www.idiap.ch/software/bob/docs/bob/docs/stable/install.html
