@@ -4,8 +4,6 @@ ARG CONDA_ENV_NAME=rpython
 ARG CONDA_PREFIX=/opt/conda
 ARG PYTHON_VERSION=3.6.10
 
-CMD ["/bin/bash"]
-
 # https://www.biostars.org/p/157305/#222297
 # https://github.com/Bioconductor/bioconductor_docker/blob/master/Dockerfile
 RUN apt-get update && \
@@ -14,9 +12,10 @@ RUN apt-get update && \
     vim \
     wget \
     build-essential \
+    git \
     # python
-    # python3-pip \
-    # python3-setuptools \
+    python3-pip \
+    python3-setuptools \
     # r
     libjpeg-dev \
     # libjpeg-turbo8-dev \
