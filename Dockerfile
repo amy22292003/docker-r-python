@@ -45,9 +45,9 @@ SHELL ["/bin/bash", "--login", "-c"]
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     bash Miniconda3-latest-Linux-x86_64.sh -b -p ${CONDA_PREFIX} && \
     rm -f Miniconda3-latest-Linux-x86_64.sh && \
-    echo 'export PATH=${CONDA_PREFIX}/bin:$PATH' >> \etc\bash.bashrc && \
-    echo 'source /opt/conda/etc/profile.d/conda.sh' >> \etc\bash.bashrc && \
-    echo 'conda init bash' >> \etc\bash.bashrc
+    echo 'export PATH=$PATH:${CONDA_PREFIX}/bin' >> /etc/bash.bashrc && \
+    echo 'source /opt/conda/etc/profile.d/conda.sh' >> /etc/bash.bashrc && \
+    echo 'conda init bash' >> /etc/bash.bashrc
     
 #     export PATH=${CONDA_PREFIX}/bin:$PATH && \
 #     conda init bash
