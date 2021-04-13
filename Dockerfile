@@ -10,6 +10,7 @@ RUN apt-get update && \
     apt-get install -y \
     # tools
     vim \
+    sudo \
     wget \
     build-essential \
     git \
@@ -44,20 +45,26 @@ SHELL ["/bin/bash", "--login", "-c"]
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     bash Miniconda3-latest-Linux-x86_64.sh -b -p ${CONDA_PREFIX} && \
     rm -f Miniconda3-latest-Linux-x86_64.sh && \
-    export PATH=${CONDA_PREFIX}/bin:$PATH && \
-    conda init bash
+    echo 'export PATH=${CONDA_PREFIX}/bin:$PATH' >> \etc\bash.bashrc && \
+    echo 'source /opt/conda/etc/profile.d/conda.sh' >> \etc\bash.bashrc && \
+    echo 'conda init bash' >> \etc\bash.bashrc
+    
+#     export PATH=${CONDA_PREFIX}/bin:$PATH && \
+#     conda init bash
+
+# source /opt/conda/etc/profile.d/conda.sh
 
 # install Bob
 # https://www.idiap.ch/software/bob/docs/bob/docs/stable/install.html
-RUN conda config --set show_channel_urls True && \
-    conda create --name ${CONDA_ENV_NAME} -y --override-channels \
-    -c https://www.idiap.ch/software/bob/conda -c defaults \
-    python=${PYTHON_VERSION} bob.io.image bob.bio.face
+# RUN conda config --set show_channel_urls True && \
+#     conda create --name ${CONDA_ENV_NAME} -y --override-channels \
+#     -c https://www.idiap.ch/software/bob/conda -c defaults \
+#     python=${PYTHON_VERSION} bob.io.image bob.bio.face
 
-# https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/debian/Dockerfile
-RUN echo "conda activate ${CONDA_ENV_NAME}" >> ~/.bashrc && \
-    source ~/.bashrc && \
-    conda config --env --add channels defaults && \
-    conda config --env --add channels https://www.idiap.ch/software/bob/conda
+# # https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/debian/Dockerfile
+# RUN echo "conda activate ${CONDA_ENV_NAME}" >> ~/.bashrc && \
+#     source ~/.bashrc && \
+#     conda config --env --add channels defaults && \
+#     conda config --env --add channels https://www.idiap.ch/software/bob/conda
 
 CMD ["/bin/bash"]
