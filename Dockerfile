@@ -41,18 +41,21 @@ RUN R -e 'install.packages("BiocManager", repos = "http://cran.rstudio.com/")' &
 # https://pythonspeed.com/articles/activate-conda-dockerfile/
 SHELL ["/bin/bash", "--login", "-c"]
 
+# https://medium.com/@pjptech/installing-anaconda-for-multiple-users-650b2a6666c6
 # https://stackoverflow.com/questions/58269375/how-to-install-packages-with-miniconda-in-dockerfile
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     bash Miniconda3-latest-Linux-x86_64.sh -b -p ${CONDA_PREFIX} && \
     rm -f Miniconda3-latest-Linux-x86_64.sh && \
-    echo 'export PATH=$PATH:${CONDA_PREFIX}/bin' >> /etc/bash.bashrc && \
-    echo 'source /opt/conda/etc/profile.d/conda.sh' >> /etc/bash.bashrc && \
-    echo 'conda init bash' >> /etc/bash.bashrc
-    
+    chmod -R a+rx ${CONDA_PREFIX} && \
+    echo '${CONDA_PREFIX}/bin/conda init bash' >> /etc/bash.bashrc
+
+# ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+#     echo 'source /opt/conda/etc/profile.d/conda.sh' >> /etc/bash.bashrc && \
+#     echo '${CONDA_PREFIX}/bin/conda init bash' >> /etc/bash.bashrc
+# echo 'export PATH=$PATH:${CONDA_PREFIX}/bin' >> /etc/bash.bashrc && \
 #     export PATH=${CONDA_PREFIX}/bin:$PATH && \
 #     conda init bash
 
-# source /opt/conda/etc/profile.d/conda.sh
 
 # install Bob
 # https://www.idiap.ch/software/bob/docs/bob/docs/stable/install.html
