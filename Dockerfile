@@ -46,7 +46,6 @@ RUN apt-get install -y curl bzip2
 
 RUN curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh  && \
     bash /tmp/miniconda.sh -bfp /usr/local && \
-    bash Miniconda3-latest-Linux-x86_64.sh -b -p ${CONDA_PREFIX} && \
     rm -rf /tmp/miniconda.sh && \
     conda install -y python=${PYTHON_VERSION} && \
     conda update conda
