@@ -1,7 +1,5 @@
 FROM r-base:4.0.3
 
-ARG CONDA_ENV_NAME=rpython
-ARG CONDA_PREFIX=/opt/conda
 ARG PYTHON_VERSION=3.6.10
 
 # https://www.biostars.org/p/157305/#222297
@@ -48,9 +46,10 @@ RUN curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64
     bash /tmp/miniconda.sh -bfp /usr/local && \
     rm -rf /tmp/miniconda.sh && \
     conda install -y python=${PYTHON_VERSION} && \
-    conda update conda
+    conda update conda && \
+    conda clean --all --yes
 
-ENV PATH /opt/conda/bin:$PATH
+# ENV PATH /opt/conda/bin:$PATH
 
 #     echo 'source /opt/conda/etc/profile.d/conda.sh' >> /etc/bash.bashrc && \
 #     echo '${CONDA_PREFIX}/bin/conda init bash' >> /etc/bash.bashrc
