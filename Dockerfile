@@ -47,7 +47,7 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh &
     bash Miniconda3-latest-Linux-x86_64.sh -b -p ${CONDA_PREFIX} && \
     rm -f Miniconda3-latest-Linux-x86_64.sh && \
     chmod -R a+rx ${CONDA_PREFIX} && \
-    echo '${CONDA_PREFIX}/bin/conda init bash' >> /etc/bash.bashrc
+    echo '$CONDA_PREFIX/bin/conda init bash' >> /etc/bash.bashrc
 
 # ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 #     echo 'source /opt/conda/etc/profile.d/conda.sh' >> /etc/bash.bashrc && \
