@@ -41,6 +41,8 @@ RUN R -e 'install.packages("BiocManager", repos = "http://cran.rstudio.com/")' &
 # https://pythonspeed.com/articles/activate-conda-dockerfile/
 SHELL ["/bin/bash", "--login", "-c"]
 
+ENV PATH=${CONDA_PREFIX}/bin:$PATH
+
 # https://medium.com/@pjptech/installing-anaconda-for-multiple-users-650b2a6666c6
 # https://stackoverflow.com/questions/58269375/how-to-install-packages-with-miniconda-in-dockerfile
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
@@ -69,4 +71,4 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh &
 #     conda config --env --add channels defaults && \
 #     conda config --env --add channels https://www.idiap.ch/software/bob/conda
 
-CMD ["/bin/bash"]
+CMD ["bash"]
