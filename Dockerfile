@@ -1,7 +1,5 @@
 FROM r-base:4.0.3
 
-ARG CONDA_ENV_NAME=rpython
-ARG CONDA_PREFIX=/opt/conda
 ARG PYTHON_VERSION=3.6.10
 
 # https://www.biostars.org/p/157305/#222297
@@ -41,15 +39,17 @@ RUN R -e 'install.packages("BiocManager", repos = "http://cran.rstudio.com/")' &
 # https://pythonspeed.com/articles/activate-conda-dockerfile/
 SHELL ["/bin/bash", "--login", "-c"]
 
-ENV PATH=${CONDA_PREFIX}/bin:$PATH
+# https://github.com/conda/conda-docker/blob/master/miniconda3/debian/Dockerfile
+RUN apt-get install -y curl bzip2 
 
-# https://medium.com/@pjptech/installing-anaconda-for-multiple-users-650b2a6666c6
-# https://stackoverflow.com/questions/58269375/how-to-install-packages-with-miniconda-in-dockerfile
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-    bash Miniconda3-latest-Linux-x86_64.sh -b -p ${CONDA_PREFIX} && \
-    rm -f Miniconda3-latest-Linux-x86_64.sh && \
-    chmod -R a+rx ${CONDA_PREFIX} && \
-    echo "${CONDA_PREFIX}/bin/conda init bash" >> /etc/bash.bashrc
+RUN curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh  && \
+    bash /tmp/miniconda.sh -bfp /usr/local && \
+    rm -rf /tmp/miniconda.sh && \
+    conda install -y python=${PYTHON_VERSION} && \
+    conda update conda && \
+    conda clean --all --yes
+
+# ENV PATH /opt/conda/bin:$PATH
 
 #     echo 'source /opt/conda/etc/profile.d/conda.sh' >> /etc/bash.bashrc && \
 #     echo '${CONDA_PREFIX}/bin/conda init bash' >> /etc/bash.bashrc
